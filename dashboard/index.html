@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>token-radar-01 · DeFi Token Launch Radar</title>
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <div id="app">
+    <header class="header">
+      <div class="logo">⚡ TOKEN RADAR v2</div>
+      <div class="subtitle">Autonomous DeFi Protocol Valuation & Token Launch Intelligence</div>
+      <div id="integrity-strip" class="integrity-strip"></div>
+    </header>
+
+    <section id="kpi-strip" class="kpi-strip"></section>
+
+    <div class="controls-bar">
+      <input type="text" id="search-input" placeholder="Search protocol, slug, or chain..." />
+      <select id="category-filter">
+        <option value="">All Categories</option>
+      </select>
+      <select id="chain-filter">
+        <option value="">All Chains</option>
+      </select>
+      <button id="watchlist-toggle-btn" class="btn">Watchlist Only (40/40)</button>
+      <select id="sort-select">
+        <option value="rank">Sort: Rank (1 &rarr; N)</option>
+        <option value="implied-desc">Sort: Implied Value (High &rarr; Low)</option>
+        <option value="tvl-desc">Sort: TVL (High &rarr; Low)</option>
+        <option value="growth-desc">Sort: 7D Growth (High &rarr; Low)</option>
+        <option value="age-desc">Sort: Age Days (Oldest &rarr; Newest)</option>
+      </select>
+    </div>
+
+    <nav class="tab-nav">
+      <button class="tab-btn active" data-tab="board">Pre-Token Radar Board</button>
+      <button class="tab-btn" data-tab="live">Live Tokens Market</button>
+      <button class="tab-btn" data-tab="method">Model & Validation</button>
+      <button class="tab-btn" data-tab="excluded">Exclusions Ledger</button>
+    </nav>
+
+    <main class="main-content">
+      <div id="tab-board" class="tab-content active">
+        <div id="top10-strip" class="top10-strip"></div>
+        <div class="table-container">
+          <table class="radar-table" id="board-table">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Protocol</th>
+                <th>Category</th>
+                <th>TVL ($)</th>
+                <th>7D %</th>
+                <th>Age</th>
+                <th>Implied Value ($)</th>
+                <th>Odds %</th>
+                <th>EV ($)</th>
+                <th>Verdict</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="board-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="tab-live" class="tab-content">
+        <h2>Live-Token Protocols (Market Capitalization Set Aside)</h2>
+        <p class="section-desc">Protocols with active tokens trading on market. Used to fit OLS regression parameters and calibrate category multiples.</p>
+        <div class="table-container">
+          <table class="radar-table" id="live-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Slug</th>
+                <th>Category</th>
+                <th>Chains</th>
+                <th>TVL ($)</th>
+                <th>Market Cap ($)</th>
+                <th>7D %</th>
+              </tr>
+            </thead>
+            <tbody id="live-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="tab-method" class="tab-content">
+        <h2>Econometric Methodology & Validation</h2>
+        <div id="method-container"></div>
+      </div>
+
+      <div id="tab-excluded" class="tab-content">
+        <h2>Exclusion Ledger & Rules Accounting</h2>
+        <p class="section-desc">Accounting for all protocols filtered out by institutional or product category rules (CEX, bridges, wrapped/staked assets, versioned pools).</p>
+        <div class="table-container">
+          <table class="radar-table" id="excluded-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Slug</th>
+                <th>Category</th>
+                <th>TVL ($)</th>
+                <th>Exclusion Reason</th>
+              </tr>
+            </thead>
+            <tbody id="excluded-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <div id="detail-modal" class="modal hidden">
+      <div class="modal-content" id="modal-content"></div>
+    </div>
+
+    <footer class="footer">
+      <div>token-radar-01 v1 · Built with Node 22 stdlib & OLS Regression · 758 protocols analyzed</div>
+    </footer>
+  </div>
+  <script src="../data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
